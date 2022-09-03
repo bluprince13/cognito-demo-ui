@@ -1,6 +1,6 @@
 {
   "authSelections": "userPoolOnly",
-  "resourceName": "cognitodemouif81edc9b",
+  "resourceName": "cognitodemoui4bca1689",
   "serviceType": "imported",
   "region": "us-east-1",
   "usernameAttributes": [
@@ -15,9 +15,11 @@
     "Requires Numbers",
     "Requires Symbols"
   ],
-  "mfaConfiguration": "OFF",
+  "mfaConfiguration": "ON",
   "autoVerifiedAttributes": [
     "email"
   ],
-  "mfaTypes": []
+  "mfaTypes": [
+    "TOTP"
+  ]
 }

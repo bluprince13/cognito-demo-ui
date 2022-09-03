@@ -13,11 +13,11 @@
     },
     "categories": {
       "auth": {
-        "cognitodemouif81edc9b": {
-          "userPoolId": "us-east-1_Jn1q3LliJ",
+        "cognitodemoui4bca1689": {
+          "userPoolId": "us-east-1_G7AS4Kfha",
           "userPoolName": "demo-userpool",
-          "webClientId": "2gmvdeo9n45h86abjgp8sb8bmo",
-          "nativeClientId": "2gmvdeo9n45h86abjgp8sb8bmo"
+          "webClientId": "6nqhd8jtr0f90o7vqssjlk69on",
+          "nativeClientId": "6nqhd8jtr0f90o7vqssjlk69on"
         }
       }
     }
