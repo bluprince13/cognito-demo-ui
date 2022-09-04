@@ -10,6 +10,7 @@ export async function signOut() {
 
 export async function getUser() {
     const user = await Auth.currentAuthenticatedUser();
+    console.log(user);
     const groups = user.signInUserSession.accessToken.payload["cognito:groups"];
     const email = user.attributes.email;
     return { groups, email };

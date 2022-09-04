@@ -31,23 +31,28 @@ function Home() {
         getUser().then((user) => setUser(user));
     }, []);
 
-    const clickButton = async ({ path, body = "", method = "get" }) => {
-        let newOutput = output;
-        newOutput += `Request: ${path}\n`;
+    const clickButton = async ({
+        path,
+        body = "",
+        method = "get",
+        useIAM = false,
+    }) => {
+        let newOutput;
+        newOutput = `Request: ${path}\n`;
         try {
             const response =
                 method == "get"
-                    ? await getData(path)
+                    ? await getData(path, useIAM)
                     : await postData(path, body);
             newOutput += `Response: ${response}`;
             console.log(response);
         } catch (error) {
             console.error(error);
-            newOutput += `Error: ${error.message}`;
+            newOutput += `Error: ${JSON.stringify(error.response.data)}`;
         }
         newOutput += "\n";
         newOutput += "------------\n";
-        setOutput(newOutput);
+        setOutput(newOutput + output);
     };
 
     return (
@@ -55,7 +60,7 @@ function Home() {
             <h1>Cognito Demo UI</h1>
             <div>
                 Logged in user is {user.email}. They are in groups:{" "}
-                {user.groups}.
+                {user.groups.join(", ")}.
             </div>
             <br></br>
             <button
@@ -82,6 +87,7 @@ function Home() {
                 onClick={() =>
                     clickButton({
                         path: "user-group-based",
+                        useIAM: true,
                     })
                 }
             >
@@ -94,6 +100,7 @@ function Home() {
                         path: "user-group-based",
                         body: "some body",
                         method: "post",
+                        useIAM: true,
                     })
                 }
             >
@@ -102,8 +109,8 @@ function Home() {
 
             <button onClick={signOut}>Sign out</button>
 
+            <h2>Output</h2>
             <div>
-                Output:
                 {output.split("\n").map((i, key) => {
                     return <div key={key}>{i}</div>;
                 })}

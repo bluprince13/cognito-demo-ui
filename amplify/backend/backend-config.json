@@ -1,6 +1,6 @@
 {
   "auth": {
-    "cognitodemoui4bca1689": {
+    "cognitodemouib95c737b": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
