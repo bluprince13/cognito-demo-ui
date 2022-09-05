@@ -2,14 +2,13 @@ import { API, Auth } from "aws-amplify";
 import aws_exports from "../src/aws-exports";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 import axios from "axios";
-import { aws4Interceptor } from "aws4-axios";
+import aws4Interceptor from "./aws4interceptor";
 
 const apiName = "demoapi";
 const baseURL = "https://vh1ds00pvd.execute-api.us-east-1.amazonaws.com/prod";
 const userPoolId = aws_exports.aws_user_pools_id;
 const region = aws_exports.aws_project_region;
 
-let previousInterceptor;
 async function getCredentialsForIdentityPool() {
     // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-integrating-user-pools-with-identity-pools.html
     const credentialsProvider = fromCognitoIdentityPool({
@@ -32,8 +31,7 @@ async function getCredentialsForIdentityPool() {
         },
         credentials
     );
-    axios.interceptors.request.eject(previousInterceptor);
-    previousInterceptor = axios.interceptors.request.use(interceptor);
+    axios.interceptors.request.use(interceptor);
 }
 
 export async function getData(path, useIam = true) {

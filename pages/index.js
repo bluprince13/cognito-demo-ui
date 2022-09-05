@@ -35,15 +35,15 @@ function Home() {
         path,
         body = "",
         method = "get",
-        useIAM = false,
+        useIam = false,
     }) => {
         let newOutput;
         newOutput = `Request: ${path}\n`;
         try {
             const response =
                 method == "get"
-                    ? await getData(path, useIAM)
-                    : await postData(path, body);
+                    ? await getData(path, useIam)
+                    : await postData(path, body, useIam);
             newOutput += `Response: ${response}`;
             console.log(response);
         } catch (error) {
@@ -87,7 +87,7 @@ function Home() {
                 onClick={() =>
                     clickButton({
                         path: "user-group-based",
-                        useIAM: true,
+                        useIam: true,
                     })
                 }
             >
@@ -100,7 +100,7 @@ function Home() {
                         path: "user-group-based",
                         body: "some body",
                         method: "post",
-                        useIAM: true,
+                        useIam: true,
                     })
                 }
             >
