@@ -1,12 +1,13 @@
 import { Amplify } from "aws-amplify";
-
+import React from "react";
+import { useState, useEffect } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 import { signOut, getUser } from "../modules/auth";
 import { getData, postData } from "../modules/api";
-
 import awsconfig from "../src/aws-exports";
+
 Amplify.configure({
     ...awsconfig,
     API: {
@@ -20,8 +21,7 @@ Amplify.configure({
     },
 });
 
-import { useState, useEffect } from "react";
-import React from "react";
+
 
 function Home() {
     const [user, setUser] = useState({ email: "", groups: [] });
@@ -35,15 +35,15 @@ function Home() {
         path,
         body = "",
         method = "get",
-        useIam = false,
+        auth = "",
     }) => {
         let newOutput;
         newOutput = `Request: ${path}\n`;
         try {
             const response =
                 method == "get"
-                    ? await getData(path, useIam)
-                    : await postData(path, body, useIam);
+                    ? await getData(path, auth)
+                    : await postData(path, body, auth);
             newOutput += `Response: ${response}`;
             console.log(response);
         } catch (error) {
@@ -77,6 +77,7 @@ function Home() {
                 onClick={() =>
                     clickButton({
                         path: "user-pool-based",
+                        auth: "JWT",
                     })
                 }
             >
@@ -87,7 +88,7 @@ function Home() {
                 onClick={() =>
                     clickButton({
                         path: "user-group-based",
-                        useIam: true,
+                        auth: "IAM",
                     })
                 }
             >
@@ -100,7 +101,7 @@ function Home() {
                         path: "user-group-based",
                         body: "some body",
                         method: "post",
-                        useIam: true,
+                        auth: "IAM",
                     })
                 }
             >
